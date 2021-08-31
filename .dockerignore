@@ -1,0 +1,9 @@
+.gitignore
+.git
+.dockerignore
+.gitlab-ci.yml
+*.md
+node_modules
+.env
+chart
+

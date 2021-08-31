@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    layer: backend
+    framework: nestjs
+    app: {{ .Values.deployment.name }}
+  name: {{ .Values.deployment.name }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+        layer: backend
+        framework: nestjs
+        app: {{ .Values.deployment.name }}
+    spec:
+      {{- if and (.Values.deployment.affinity) (ge .Values.deployment.replicas 2.0) }}
+      affinity: {{- toYaml .Values.deployment.affinity | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Values.deployment.name }}
+          image: {{ .Values.container.image.registry }}/{{ .Values.container.image.repository }}:{{ .Values.container.image.tag }}
+          imagePullPolicy: {{ .Values.container.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.deployment.containerPort.number }}
+              protocol: {{ .Values.deployment.containerPort.protocol }}
+          {{- if .Values.container.resources }}
+          resources: {{- toYaml .Values.container.resources | nindent 12 }}
+          {{- end }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.deployment.readinessProbe.endpoint }}
+              port: {{ .Values.deployment.containerPort.number }}
+            successThreshold: {{ .Values.deployment.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.deployment.readinessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.deployment.livenessProbe.endpoint }}
+              port: {{ .Values.deployment.containerPort.number }}
+            successThreshold: {{ .Values.deployment.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.deployment.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
+          env: 
+          {{- if .Values.container.additionalVariables }}
+          {{- toYaml .Values.container.additionalVariables | nindent 12 }}
+          {{- end }}
+      imagePullSecrets:
+        - name: {{ .Values.container.image.pullSecrets }}

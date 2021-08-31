@@ -1,0 +1,122 @@
+## Docker image parameters
+##
+container:
+  ## Container's image definition
+  ##
+  image:
+    ## Container's image registry
+    ##
+    registry: armdocker.rnd.ericsson.se/proj-connx
+    ## Container's image repository name
+    ##
+    repository: rabbitmq-publisher
+    ## Container's image tag
+    ##
+    tag: latest
+    ## Specify a imagePullPolicy
+    ##
+    pullPolicy: Always
+    ## Optionally specify the imagePullSecret.
+    ##
+    pullSecrets: deployment-docker-registry-secret
+  ## Resources assigned to the container
+  ##
+  resources:
+    ## Limit resources
+    ##  
+    limits:
+      memory: 128Mi
+      cpu: 100m
+    ## Requested resources
+    ##  
+    requests:
+      memory: 128Mi
+      cpu: 50m
+
+  ## Additional environment variables to be set  
+  ## ConfigMaps (configMapKeyRef) and Secrets (secretKeyRef) referencies may be used here
+  ##  
+  additionalVariables:
+    - name: LOGGER_LEVEL
+      value: info
+    - name: ENV
+      value: production
+
+## Deployment Parameters
+##
+deployment:
+  ## Deployment name
+  ##
+  name: rabbitmq-publisher
+  ## Number of replicas to deploy initially
+  ##
+  replicas: 1
+  ## Minumum number of available replicas for the pod disruption budget
+  ##
+  minAvailable: 1
+  
+  ## Port to access the service
+  ##
+  servicePort:
+    ## Port number
+    ##
+    number: 3000
+    ## Port name
+    ##
+    name: http
+  
+  ## Port exposed by the container
+  ##
+  containerPort: 
+    ## Port number
+    ##
+    number: 3000
+    ## Port Protocol
+    ##
+    protocol: TCP
+  
+  ## Configuraton for the readiness probe
+  ##
+  readinessProbe:
+    ## URL with the endpoint to test id the service is ready
+    ##
+    endpoint: /api/health
+    ## Success Threshold
+    ##
+    successThreshold: 1
+    ## Failure Threshold
+    ##
+    failureThreshold: 120
+    ## Period in Seconds
+    ##
+    periodSeconds: 5
+
+  ## Configuraton for the liveness probe
+  ##
+  livenessProbe:
+    ## URL with the endpoint to test id the service is ready
+    ##
+    endpoint: /api/health
+    ## Success Threshold
+    ##
+    successThreshold: 1
+    ## Failure Threshold
+    ##
+    failureThreshold: 2
+    ## Period in Seconds
+    ##
+    periodSeconds: 30
+
+  ## Affinity for pod assignment.
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  ##
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - rabbitmq-publisher
+        topologyKey: "kubernetes.io/hostname"
