@@ -3,6 +3,11 @@ export const App = {
   ServiceName: 'rabbitmq-publisher'
 };
 
+export const RabbitMQ = {
+  ConnectionUrl: 'amqp://localhost:5672',
+  QueueName: 'test-queue'
+};
+
 export enum Environments {
   LOCAL = 'local',
   DEV = 'development',

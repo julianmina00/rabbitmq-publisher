@@ -1,10 +1,13 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import configuration from './config/configuration';
 import { HealthModule } from './health/health.module';
 import { SharedModule } from './shared/shared.module';
+import { SenderController } from './sender/sender.controller';
+import { SenderModule } from './sender/sender.module';
 
+@Global()
 @Module({
   imports: [
     HealthModule,
@@ -12,9 +15,10 @@ import { SharedModule } from './shared/shared.module';
       isGlobal: true,
       load: [configuration]
     }),
-    SharedModule
+    SharedModule,
+    SenderModule
   ],
-  controllers: [],
-  providers: []
+  controllers: [SenderController],
+  providers: [], 
 })
 export class AppModule {}
