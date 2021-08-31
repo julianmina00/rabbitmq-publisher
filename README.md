@@ -1,4 +1,4 @@
-# This project aims to test RabbitMQ by sendind messages [D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[D[g[4~[C[C[C[C[C[C[C[C[C[C[C[
+# This project aims to test RabbitMQ by sendind messages
 
 ## Table of Contents
 1. [Description](#description)

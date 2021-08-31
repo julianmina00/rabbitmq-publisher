@@ -1,4 +1,4 @@
-FROM armdocker.rnd.ericsson.se/dockerhub-ericsson-remote/node:14.17.1-alpine
+FROM node:14.17.1-alpine
 
 # Fix vulnerability issues by updating all critical packages manually
 RUN apk --no-cache upgrade
@@ -19,5 +19,5 @@ COPY . /app
 RUN npm run build
 
 
-EXPOSE 3000
+EXPOSE 3030
 CMD [ "npm", "run", "start:prod" ]

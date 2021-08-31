@@ -1,5 +1,5 @@
 export const App = {
-  Port: 3000,
+  Port: 3030,
   ServiceName: 'rabbitmq-publisher'
 };
 

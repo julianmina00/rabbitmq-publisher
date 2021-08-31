@@ -6,7 +6,7 @@ container:
   image:
     ## Container's image registry
     ##
-    registry: armdocker.rnd.ericsson.se/proj-connx
+    registry: 
     ## Container's image repository name
     ##
     repository: rabbitmq-publisher
@@ -18,7 +18,7 @@ container:
     pullPolicy: Always
     ## Optionally specify the imagePullSecret.
     ##
-    pullSecrets: deployment-docker-registry-secret
+    pullSecrets: 
   ## Resources assigned to the container
   ##
   resources:
@@ -60,7 +60,7 @@ deployment:
   servicePort:
     ## Port number
     ##
-    number: 3000
+    number: 3030
     ## Port name
     ##
     name: http
@@ -70,7 +70,7 @@ deployment:
   containerPort: 
     ## Port number
     ##
-    number: 3000
+    number: 3030
     ## Port Protocol
     ##
     protocol: TCP

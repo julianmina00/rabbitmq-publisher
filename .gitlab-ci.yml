@@ -1,3 +1,0 @@
-include:
-  - project: 'san-tools-technology-platform/connected-x/framework/devops-templates'
-    file: '/Node.js/Standard-Pipeline.gitlab-ci.yml'

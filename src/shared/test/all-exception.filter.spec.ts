@@ -4,7 +4,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { AllExceptionsFilter } from '../filters/all-exception.filter';
 import { LoggerService } from '../services/logger.service';
 
-const path = 'http://localhost:3000/test';
+const path = 'http://localhost:3030/test';
 
 const mockAppLoggerService = {
   info: jest.fn(),

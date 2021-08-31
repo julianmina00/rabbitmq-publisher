@@ -2,10 +2,7 @@
   "name": "rabbitmq-publisher",
   "version": "0.0.1",
   "description": "This project aims to test RabbitMQ by sending messages",
-  "author": "Ericsson, BNEW SAN Tools - Connected X",
-  "publishConfig": {
-    "registry": "https://arm.seli.gic.ericsson.se/artifactory/api/npm/proj-connx-npm-local/"
-  },
+  "author": "Julian Mina",
   "repository": {
     "type": "git",
     "url": "git@github.com:julianmina00/rabbitmq-publisher.git"
@@ -34,10 +31,13 @@
     "@nestjs/common": "7.6.15",
     "@nestjs/config": "0.6.3",
     "@nestjs/core": "7.6.15",
+    "@nestjs/microservices": "^8.0.6",
     "@nestjs/platform-express": "7.6.15",
+    "@nestjs/swagger": "4.8.1",
+    "amqp-connection-manager": "3.2.2",
+    "amqplib": "0.8.0",
     "class-transformer": "0.4.0",
     "class-validator": "0.13.1",
-    "@nestjs/swagger": "4.8.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.7",
     "swagger-ui-express": "4.1.6",
