@@ -18,9 +18,6 @@ export class SenderController {
   @ApiOperation({ summary: 'Send messages to RabbitMQ' })
   @ApiOkResponse({ description: 'Service available' })
   async sendMessage(@Param('type') type: string, @Body() message: any) {
-    this.logger.debug(
-      `Send message of type: ${type}. Message: ${JSON.stringify(message)}`
-    );
     try {
       return await this.sender.send(type, message);
     } catch (error) {
