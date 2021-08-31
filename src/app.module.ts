@@ -19,6 +19,6 @@ import { SenderModule } from './sender/sender.module';
     SenderModule
   ],
   controllers: [SenderController],
-  providers: [], 
+  providers: []
 })
 export class AppModule {}

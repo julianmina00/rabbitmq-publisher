@@ -8,7 +8,7 @@ describe('SenderController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [SenderController],
-      providers: [SenderService],
+      providers: [SenderService]
     }).compile();
 
     controller = module.get<SenderController>(SenderController);

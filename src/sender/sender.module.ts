@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { SenderController } from './sender.controller';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxyFactory, RmqOptions, Transport } from '@nestjs/microservices';
+import {
+  ClientProxyFactory,
+  RmqOptions,
+  Transport
+} from '@nestjs/microservices';
 import { SenderService } from './sender.service';
 
 @Module({
