@@ -7,8 +7,12 @@ import {
   Transport
 } from '@nestjs/microservices';
 import { SenderService } from './sender.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
+  imports: [
+    ScheduleModule.forRoot()
+  ],
   controllers: [SenderController],
   providers: [
     {
@@ -20,6 +24,8 @@ import { SenderService } from './sender.service';
           options: {
             urls: [configService.get<string>('rabbitConnectionUrl')],
             queue: configService.get<string>('rabbitQueueName'),
+            noAck: false,
+            persistent: true,
             queueOptions: {
               durable: true
             }

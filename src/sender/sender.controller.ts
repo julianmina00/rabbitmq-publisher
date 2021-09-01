@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Post, UseFilters } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { AllExceptionsFilter } from '@src/shared/filters/all-exception.filter';
 import { LoggerService } from '@src/shared/services/logger.service';
@@ -14,12 +14,12 @@ export class SenderController {
     this.logger.setContext(SenderController.name);
   }
 
-  @Post('/:type')
+  @Post('/message')
   @ApiOperation({ summary: 'Send messages to RabbitMQ' })
   @ApiOkResponse({ description: 'Service available' })
-  async sendMessage(@Param('type') type: string, @Body() message: any) {
+  async sendMessage(@Body() message: any) {
     try {
-      return await this.sender.send(type, message);
+      return await this.sender.send('message', message);
     } catch (error) {
       this.logger.error(error);
     }
