@@ -10,9 +10,7 @@ import { SenderService } from './sender.service';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [
-    ScheduleModule.forRoot()
-  ],
+  imports: [ScheduleModule.forRoot()],
   controllers: [SenderController],
   providers: [
     {

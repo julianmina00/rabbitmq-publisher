@@ -23,12 +23,12 @@ export class SenderService {
 
   async send<T>(type: string, payload: T): Promise<void> {
     this.logger.debug(`Sending message [${type}: ${JSON.stringify(payload)}]`);
-    this.messsages.push({type, payload});
+    this.messsages.push({ type, payload });
   }
 
   @Cron(CronExpression.EVERY_SECOND)
-  async handleCron(){
-    if(this.canSend()){
+  async handleCron() {
+    if (this.canSend()) {
       await this.internalSender();
     }
   }
@@ -39,12 +39,18 @@ export class SenderService {
 
   private async internalSender() {
     this.processing = true;
-    try {      
-      while(this.messsages.length > 0){
+    try {
+      while (this.messsages.length > 0) {
         const message = this.messsages[0] as IMessage;
-        await this.client.emit<void, any>(message.type, message.payload).toPromise();
-        this.messsages.splice(0,1);
-        this.logger.debug(`Message [${message.type}: ${JSON.stringify(message.payload)}] was sent`);
+        await this.client
+          .emit<void, any>(message.type, message.payload)
+          .toPromise();
+        this.messsages.splice(0, 1);
+        this.logger.debug(
+          `Message [${message.type}: ${JSON.stringify(
+            message.payload
+          )}] was sent`
+        );
       }
     } catch (error) {
       this.logger.error(`error ${JSON.stringify(error)}`);
@@ -55,7 +61,8 @@ export class SenderService {
 
   wait() {
     this.waiting = true;
-    setTimeout(() => { this.waiting = false; }, 5000);
+    setTimeout(() => {
+      this.waiting = false;
+    }, 5000);
   }
-
 }
